@@ -1,6 +1,7 @@
 class Calculator{
     constructor(display, alt) {
         this.display = display;
+        this.cursor_pos = 0;
         this.alt_display = alt;
         this.input = "";
         this.alt_text = "";
@@ -25,11 +26,22 @@ class Calculator{
         this.display.value = this.input;
         this.alt_display.value = this.alt_text;
         this.display.focus();
-        this.display.setSelectionRange(this.display.value.length,this.display.value.length);
+        this.display.setSelectionRange(this.cursor_pos, this.cursor_pos);
+    }
+
+    move_cursor(x, y) {
+        // TODO GORE DOLE
+        this.cursor_pos += x + y;
+        this.display.focus();
+        this.update_display();
     }
 
     insert(event) {
-        this.input += event.currentTarget.innerText;
+        let part1 = this.input.slice(0, this.cursor_pos);
+        let part2 = this.input.slice(this.cursor_pos);
+        let insert_value = event.currentTarget.innerText;
+        this.input = part1 + insert_value + part2;
+        this.move_cursor(1, 0);
         this.update_display();
     }
 
@@ -39,13 +51,15 @@ class Calculator{
     }
 
     backspace() {
-        this.input = this.input.slice(0, -1);
+        this.input = this.input.slice(0, this.cursor_pos-1) + this.input.slice(this.cursor_pos);
+        this.move_cursor(-1, 0);
         this.update_display();
     }
 
     clear() {
         this.input = "";
         this.alt_text = "";
+        this.cursor_pos = 0;
         this.update_display();
     }
 

@@ -37,8 +37,6 @@
                 </div>
                 <div>
                     <button onclick="calc.move_cursor(0, -1)">↑</button>
-                    
-                    <button onclick="calc.move_cursor(0, 1)">↓</button>
                 </div>
                 <div>
                     <button onclick="calc.TODO(event)">MENU</button>
@@ -46,9 +44,13 @@
                 </div>
             </div>
             <div>
-                <div id="additional-row">
-                    <button onclick="calc.move_cursor(0, -1)">↑</button>
-                    
+                <div class="additional-row">
+                    <button onclick="calc.move_cursor(-1, 0)">←</button>
+                    <button onclick="calc.move_cursor(1, 0)">→</button>
+                </div>
+            </div>
+            <div>
+                <div class="additional-row">
                     <button onclick="calc.move_cursor(0, 1)">↓</button>
                 </div>
             </div>
