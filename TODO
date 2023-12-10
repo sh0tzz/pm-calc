@@ -1,0 +1,12 @@
+napraviti art za gumb za razlomak
+trenutno je samo a/b
+
+Calculator.backspace()
+poboljsati da ne brise slovo po slovo
+nego cjelinu po cjelinu
+npr kada insertamo Ans
+brise slovo po slovo
+a ne sve odjednom
+
+Koristiti MathJax za renderanje matematike
+

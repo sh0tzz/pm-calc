@@ -1,0 +1,117 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.space-right {
+    margin-right: 10px;
+}
+
+#calculator {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    margin: 20px;
+    padding: 20px;
+    border: 2px solid black;
+    border-radius: 30px;
+}
+
+#label {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    font-family: 'Cutive Mono', monospace;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#label div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5px 0;
+}
+
+#display input {
+    background-color: #d9d9d9;
+    width: 90%;
+    padding: 0 5px;
+    height: 30px;
+    border: none;
+    text-align: right;
+}
+
+#display input:focus {
+    outline: none;
+}
+
+
+#special {
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+#special #additional-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#special div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#special button {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    margin: 10px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#operations {
+    margin: 10px 0;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#operations div, #keypad div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#operations button {
+    width: 50px;
+    height: 30px;
+}
+
+#keypad {
+    margin: 10px 0;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#keypad button {
+    width: 60px;
+    height: 40px;
+}
+

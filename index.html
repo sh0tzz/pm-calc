@@ -4,13 +4,123 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>kalkulator</title>
+    <link rel="stylesheet" href="./style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap" rel="stylesheet">
+
 </head>
 <body>
-    <button onclick="calc.insert(event)">1</button>
-    <button onclick="calc.insert(event)">2</button>
-    <button onclick="calc.insert(event)">3</button>
-    <button onclick="calc.insert(event)">+</button>
-    <button onclick="calc.evaluate()">=</button>
+    <div id="calculator">
+        <div id="label">
+            <div>
+                <p>DOROTEA BOLE</p>
+                <p>JAN GRDANJSKI</p>
+                <p>VITO KAURIĆ</p>
+            </div>
+            <div>
+                <p>LEON KUŠIĆ</p>
+                <p>4.C</p>
+                <p>FRANE NINIĆ</p>
+            </div>
+        </div>
+        <div id="display">
+            <input type="text" id="alt-text" disabled>
+            <input type="text" id="input-field">
+        </div>
+        <div id="special">
+            <div>
+                <div>
+                    <button onclick="calc.TODO(event)">SHIFT</button>
+                    <button onclick="calc.TODO(event)">ALPHA</button>
+                </div>
+                <div>
+                    <button onclick="calc.move_cursor(0, -1)">↑</button>
+                    
+                    <button onclick="calc.move_cursor(0, 1)">↓</button>
+                </div>
+                <div>
+                    <button onclick="calc.TODO(event)">MENU</button>
+                    <button onclick="calc.TODO(event)">ON</button>
+                </div>
+            </div>
+            <div>
+                <div id="additional-row">
+                    <button onclick="calc.move_cursor(0, -1)">↑</button>
+                    
+                    <button onclick="calc.move_cursor(0, 1)">↓</button>
+                </div>
+            </div>
+        </div>
+        <div id="operations">
+            <div class="">
+                <div>
+                    <button onclick="calc.TODO(event)" class="space-right">OPTN</button>
+                    <button onclick="calc.insert_exponent('(3)')">x<sup>3</sup></button>
+                </div>
+                <div>
+                    <button onclick="calc.TODO(event)" class="space-right">Abs</button>
+                    <button onclick="calc.TODO(event)">log<sub>a</sub>n</button>
+                </div>
+            </div>
+            <div>
+                <button onclick="calc.TODO(event)">a/b</button>
+                <button onclick="calc.TODO(event)">√x</button>
+                <button onclick="calc.insert_exponent('(2)')">x<sup>2</sup></button>
+                <button onclick="calc.TODO(event)">x<sup>y</sup></button>
+                <button onclick="calc.TODO(event)">log</button>
+                <button onclick="calc.TODO(event)">ln</button>
+            </div>
+            <div>
+                <button onclick="calc.TODO(event)">(-)</button>
+                <button onclick="calc.TODO(event)">° ' "</button>
+                <button onclick="calc.insert_exponent('(-1)')">x<sup>-1</sup></button>
+                <button onclick="calc.TODO(event)">sin</button>
+                <button onclick="calc.TODO(event)">cos</button>
+                <button onclick="calc.TODO(event)">tan</button>
+            </div>
+            <div>
+                <button onclick="calc.TODO(event)">STO</button>
+                <button onclick="calc.TODO(event)">ENG</button>
+                <button onclick="calc.insert(event)">(</button>
+                <button onclick="calc.insert(event)">)</button>
+                <button onclick="calc.TODO(event)">S⇔D</button>
+                <button onclick="calc.TODO(event)">M+</button>
+            </div>
+        </div>
+        <div id="keypad">
+            <div>
+                <button onclick="calc.insert(event)">7</button>
+                <button onclick="calc.insert(event)">8</button>
+                <button onclick="calc.insert(event)">9</button>
+                <button onclick="calc.backspace()">Del</button>
+                <button onclick="calc.clear()">AC</button>
+            </div>
+            <div>
+                <button onclick="calc.insert(event)">4</button>
+                <button onclick="calc.insert(event)">5</button>
+                <button onclick="calc.insert(event)">6</button>
+                <button onclick="calc.insert(event)">×</button>
+                <button onclick="calc.insert(event)">÷</button>
+            </div>
+            <div>
+                <button onclick="calc.insert(event)">1</button>
+                <button onclick="calc.insert(event)">2</button>
+                <button onclick="calc.insert(event)">3</button>
+                <button onclick="calc.insert(event)">+</button>
+                <button onclick="calc.insert(event)">-</button>
+            </div>
+            <div>
+                <button onclick="calc.insert(event)">0</button>
+                <button onclick="calc.insert(event)">.</button>
+                <button onclick="calc.TODO(event)">×10<sup>x</sup></button>
+                <button onclick="calc.insert(event)">Ans</button>
+                <button onclick="calc.evaluate()">=</button>
+            </div>
+        </div>
+    </div>
+    
     <div></div>
     <script src="app.js"></script>
 </body>
