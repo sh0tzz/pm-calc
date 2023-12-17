@@ -68,6 +68,7 @@
 
 #special .additional-row button {
     margin: 0 15px;
+    z-index: 1;
 }
 
 #special div {
