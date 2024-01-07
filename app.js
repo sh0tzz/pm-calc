@@ -153,7 +153,10 @@ class Calculator{
     }
 
     insert_special(text='', cursor_offset=0) {
-        this.input += text;
+        let part1 = this.input.slice(0, this.cursor_pos);
+        let part2 = this.input.slice(this.cursor_pos);
+        let insert_value = text;
+        this.input = part1 + insert_value + part2;
         this.move_cursor(text.length + cursor_offset, 0);
         this.update_display();
     }

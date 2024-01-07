@@ -62,20 +62,20 @@
                     <button onclick="calc.insert_special('^(3)')">x<sup>3</sup></button>
                 </div>
                 <div>
-                    <button onclick="calc.TODO(event)" class="space-right">Abs</button>
-                    <button onclick="calc.TODO(event)">log<sub>a</sub>n</button>
+                    <button onclick="calc.insert_special('||', -1)" class="space-right">Abs</button>
+                    <button onclick="calc.insert_special('log[]()', -3)">log<sub>a</sub>n</button>
                 </div>
             </div>
             <div>
-                <button onclick="calc.TODO(event)">a/b</button>
-                <button onclick="calc.TODO(event)">√x</button>
+                <button onclick="calc.insert_special('(/)', -2)">a/b</button>
+                <button onclick="calc.insert_special('√()', -1)">√x</button>
                 <button onclick="calc.insert_special('^(2)')">x<sup>2</sup></button>
                 <button onclick="calc.insert_special('^()', -1)">x<sup>y</sup></button>
-                <button onclick="calc.TODO(event)">log</button>
-                <button onclick="calc.TODO(event)">ln</button>
+                <button onclick="calc.insert_special('log()', -1)">log</button>
+                <button onclick="calc.insert_special('ln()', -1)">ln</button>
             </div>
             <div>
-                <button onclick="calc.TODO(event)">(-)</button>
+                <button onclick="calc.insert_special('-')">(-)</button>
                 <button onclick="calc.TODO(event)">° ' "</button>
                 <button onclick="calc.insert_special('^(-1)')">x<sup>-1</sup></button>
                 <button onclick="calc.TODO(event)">sin</button>
