@@ -16,7 +16,6 @@ class Calculator{
 
     evaluate() {
         this.alt_text = this.input;
-        console.log(this.input);
 
         //razdvajanje elemenata
         let number = "";
@@ -42,12 +41,12 @@ class Calculator{
                     number += this.input[i];
                 }
                 else if(operators.includes(this.input[i])) {
-                    list.push(number);
+                    list.push(parseInt(number));
                     number = "";
                     list.push(this.input[i]);
                 }
                 else{
-                    list.push(number);
+                    list.push(parseInt(number));
                     number = "";
                     operator += this.input[i];
                 }
@@ -70,13 +69,12 @@ class Calculator{
         }
 
         if(number != "") {
-            list.push(number);
+            list.push(parseInt(number));
         }
         
         if(operator != "") {
             list.push(operator);
         }
-
 
         //spajanje decimalnih brojeva
         let decnum;
@@ -99,50 +97,35 @@ class Calculator{
                 console.log("error: wrong input; input not an operator or a number");
             }
         }
+        
+        //provjeravanje broja zagrada
+        if (this.count(list,'(') != this.count(list,')')){
+            console.log("broj zagrada nije jednak!");
+            return;
+        }
 
-        //pronalazenje i checkiranje zagrada
+        //pronalazenje i racunanje zagrada
         let l_paren = -1;
         let r_paren = -1;
-        for(let i = 0; i < list.length; i++) {
-            if(list[i] == '(') {
-                l_paren = i;
+        let partial_list = [];
+        while(list.includes('(') && list.includes(')')){
+            for(let i = 0; i < list.length; i++) {
+                if(list[i] == '(') {
+                    l_paren = i;
+                }
+                if(list[i] == ')') {
+                    r_paren = i;
+                    partial_list = list.slice(l_paren+1, r_paren);
+                    list.splice(l_paren, (r_paren-l_paren)+1,this.pemdas(partial_list));
+                    l_paren = -1;
+                    r_paren = -1;
+                }
             }
-            if(list[i] == ')') {
-                r_paren = i;
-                break;
-            }
-        }
-        if(l_paren == -1 && r_paren != -1 || l_paren != -1 && r_paren == -1) {
-            console.log("error: wrong number of parentheses");
         }
 
-        let index_of_operation;
-        let temp_result;
-        //redoslijed operacija
-        if(list.includes("×")) {
-            index_of_operation = list.indexOf('×');
-            temp_result = multiply(list[index_of_operation-1], list[index_of_operation+1]);
-            list.splice(index_of_operation-1,3,temp_result);;
-        }
-        if(list.includes("÷")) {
-            index_of_operation = list.indexOf('÷');
-            temp_result = divide(list[index_of_operation-1], list[index_of_operation+1]);
-            list.splice(index_of_operation-1,3,temp_result);;
-        }
-        if(list.includes("+")) {
-            index_of_operation = list.indexOf('+');
-            temp_result = add(list[index_of_operation-1], list[index_of_operation+1]);
-            list.splice(index_of_operation-1,3,temp_result);;
-        }
-        if(list.includes("-")) {
-            index_of_operation = list.indexOf('-');
-            temp_result = subtract(list[index_of_operation-1], list[index_of_operation+1]);
-            list.splice(index_of_operation-1,3,temp_result);;
-        }
-
-        // nakon evaluacije i racunanja
-        // postaviti this.prev_ans
-        
+        this.pemdas(list);
+        this.prev_ans = list[0];
+        this.input = list[0];
         this.update_display();
     }
 
@@ -154,7 +137,6 @@ class Calculator{
     }
 
     move_cursor(x, y) {
-        console.log('AAAAAAAAAAAAAA');
         // TODO GORE DOLE
         this.cursor_pos += x + y;
         this.display.focus();
@@ -191,6 +173,35 @@ class Calculator{
     TODO(event) {
         // window.alert(`Button ${event.currentTarget.innerText} not implemented`);
         console.log(`Button ${event.currentTarget.innerText} not implemented`);
+    }
+    pemdas(list) {
+        //redoslijed operacija
+        let index_of_operation;
+        let temp_result;
+        let operations = {
+            '×': multiply,
+            '÷': divide,
+            '+': add,
+            '-': subtract
+        }
+        let ops = Object.keys(operations);
+        for (let i = 0; i < ops.length; i++) {
+            while(list.includes(ops[i])) {
+                index_of_operation = list.indexOf(ops[i]);
+                temp_result = operations[ops[i]](list[index_of_operation-1], list[index_of_operation+1]);
+                list.splice(index_of_operation-1,3,temp_result);;
+            }
+        }
+        return list[0];
+    }
+    count(list,element) {
+        let count_element = 0;
+        for(let i = 0; i<list.length; i++){
+            if(list[i] === element) {
+                count_element += 1;
+            }
+        }
+        return count_element;
     }
 }
 
