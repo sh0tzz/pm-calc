@@ -152,8 +152,9 @@ class Calculator{
         this.update_display();
     }
 
-    insert_exponent(exponent) {
-        this.input += `^${exponent}`;
+    insert_special(text='', cursor_offset=0) {
+        this.input += text;
+        this.move_cursor(text.length + cursor_offset, 0);
         this.update_display();
     }
 

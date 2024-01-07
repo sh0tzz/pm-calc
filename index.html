@@ -59,7 +59,7 @@
             <div class="">
                 <div>
                     <button onclick="calc.TODO(event)" class="space-right">OPTN</button>
-                    <button onclick="calc.insert_exponent('(3)')">x<sup>3</sup></button>
+                    <button onclick="calc.insert_special('^(3)')">x<sup>3</sup></button>
                 </div>
                 <div>
                     <button onclick="calc.TODO(event)" class="space-right">Abs</button>
@@ -69,15 +69,15 @@
             <div>
                 <button onclick="calc.TODO(event)">a/b</button>
                 <button onclick="calc.TODO(event)">√x</button>
-                <button onclick="calc.insert_exponent('(2)')">x<sup>2</sup></button>
-                <button onclick="calc.TODO(event)">x<sup>y</sup></button>
+                <button onclick="calc.insert_special('^(2)')">x<sup>2</sup></button>
+                <button onclick="calc.insert_special('^()', -1)">x<sup>y</sup></button>
                 <button onclick="calc.TODO(event)">log</button>
                 <button onclick="calc.TODO(event)">ln</button>
             </div>
             <div>
                 <button onclick="calc.TODO(event)">(-)</button>
                 <button onclick="calc.TODO(event)">° ' "</button>
-                <button onclick="calc.insert_exponent('(-1)')">x<sup>-1</sup></button>
+                <button onclick="calc.insert_special('^(-1)')">x<sup>-1</sup></button>
                 <button onclick="calc.TODO(event)">sin</button>
                 <button onclick="calc.TODO(event)">cos</button>
                 <button onclick="calc.TODO(event)">tan</button>
