@@ -14,3 +14,5 @@ cursor preskace cjeline npr Ans log
 
 napraviti cijeli shift menu frontend i backend
 
+racunati rezultate dijeljenja kao razlomke
+displayati ovisno o gumbu S<=>D
