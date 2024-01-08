@@ -32,7 +32,7 @@
         <div id="special">
             <div>
                 <div>
-                    <button onclick="calc.TODO(event)">SHIFT</button>
+                    <button id="shift-button" onclick="calc.toggle_shift()">SHIFT</button>
                     <button onclick="calc.TODO(event)">ALPHA</button>
                 </div>
                 <div>
@@ -56,7 +56,7 @@
             </div>
         </div>
         <div id="operations">
-            <div class="">
+            <div id="row1">
                 <div>
                     <button onclick="calc.TODO(event)" class="space-right">OPTN</button>
                     <button onclick="calc.insert_special('^(3)')">x<sup>3</sup></button>
@@ -67,28 +67,74 @@
                 </div>
             </div>
             <div>
-                <button onclick="calc.insert_special('(/)', -2)">a/b</button>
-                <button onclick="calc.insert_special('√()', -1)">√x</button>
-                <button onclick="calc.insert_special('^(2)')">x<sup>2</sup></button>
-                <button onclick="calc.insert_special('^()', -1)">x<sup>y</sup></button>
-                <button onclick="calc.insert_special('log()', -1)">log</button>
-                <button onclick="calc.insert_special('ln()', -1)">ln</button>
+                <div class="labels">
+                    <p></p>
+                    <p><sup>3</sup>√x</p>
+                    <p></p>
+                    <p><sup>n</sup>√x</p>
+                    <p>10<sup>x</sup></p>
+                    <p>e<sup>x</sup></p>
+                </div>
+                <div class="shift">
+                    <button onclick="calc.insert_special('(/)', -2)">a/b</button>
+                    <button onclick="calc.insert_special('[3]√()', -1)">√x</button>
+                    <button onclick="calc.insert_special('^(2)')">x<sup>2</sup></button>
+                    <button onclick="calc.insert_special('[]√()', -4)">x<sup>y</sup></button>
+                    <button onclick="calc.insert_special('10^()', -1)">log</button>
+                    <button onclick="calc.insert_special('e^()', -1)">ln</button>
+                </div>
+                <div class="non-shift">
+                    <button onclick="calc.insert_special('(/)', -2)">a/b</button>
+                    <button onclick="calc.insert_special('√()', -1)">√x</button>
+                    <button onclick="calc.insert_special('^(2)')">x<sup>2</sup></button>
+                    <button onclick="calc.insert_special('^()', -1)">x<sup>y</sup></button>
+                    <button onclick="calc.insert_special('log()', -1)">log</button>
+                    <button onclick="calc.insert_special('ln()', -1)">ln</button>
+                </div>
             </div>
             <div>
-                <button onclick="calc.insert_special('-')">(-)</button>
-                <button onclick="calc.TODO(event)">° ' "</button>
-                <button onclick="calc.insert_special('^(-1)')">x<sup>-1</sup></button>
-                <button onclick="calc.TODO(event)">sin</button>
-                <button onclick="calc.TODO(event)">cos</button>
-                <button onclick="calc.TODO(event)">tan</button>
+                <div class="labels">
+                    <p></p>
+                    <p></p>
+                    <p>x!</p>
+                    <p>sin<sup>-1</sup></p>
+                    <p>cos<sup>-1</sup></p>
+                    <p>tan<sup>-1</sup></p>
+                </div>
+                <div class="shift">
+                    <button onclick="calc.insert_special('-')">(-)</button>
+                    <button onclick="calc.insert_special('°')">° ' "</button>
+                    <button onclick="calc.insert_special('!')">x<sup>-1</sup></button>
+                    <button onclick="calc.insert_special('asin()', -1)">sin</button>
+                    <button onclick="calc.insert_special('acos()', -1)">cos</button>
+                    <button onclick="calc.insert_special('atan()', -1)">tan</button>
+                </div>
+                <div class="non-shift">
+                    <button onclick="calc.insert_special('-')">(-)</button>
+                    <button onclick="calc.insert_special('°')">° ' "</button>
+                    <button onclick="calc.insert_special('^(-1)')">x<sup>-1</sup></button>
+                    <button onclick="calc.insert_special('sin()', -1)">sin</button>
+                    <button onclick="calc.insert_special('cos()', -1)">cos</button>
+                    <button onclick="calc.insert_special('tan()', -1)">tan</button>
+                </div>
             </div>
             <div>
-                <button onclick="calc.TODO(event)">STO</button>
-                <button onclick="calc.TODO(event)">ENG</button>
-                <button onclick="calc.insert(event)">(</button>
-                <button onclick="calc.insert(event)">)</button>
-                <button onclick="calc.TODO(event)">S⇔D</button>
-                <button onclick="calc.TODO(event)">M+</button>
+                <div class="labels">
+                    <p></p>
+                    <p>Π</p>
+                    <p>nPr</p>
+                    <p>nCr</p>
+                    <p></p>
+                    <p>M-</p>
+                </div>
+                <div>
+                    <button onclick="calc.TODO(event)">STO</button>
+                    <button onclick="calc.insert_special('Π')">ENG</button>
+                    <button onclick="calc.insert_special('nPr')">(</button>
+                    <button onclick="calc.insert_special('nCr')">)</button>
+                    <button onclick="calc.TODO(event)">S⇔D</button>
+                    <button onclick="calc.TODO(event)">M+</button>
+                </div>
             </div>
         </div>
         <div id="keypad">
@@ -116,7 +162,7 @@
             <div>
                 <button onclick="calc.insert(event)">0</button>
                 <button onclick="calc.insert(event)">.</button>
-                <button onclick="calc.TODO(event)">×10<sup>x</sup></button>
+                <button onclick="calc.insert_special('×10^()', -1)">×10<sup>x</sup></button>
                 <button onclick="calc.insert(event)">Ans</button>
                 <button onclick="calc.evaluate()">=</button>
             </div>

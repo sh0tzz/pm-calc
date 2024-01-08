@@ -6,6 +6,11 @@ class Calculator{
         this.input = "";
         this.alt_text = "";
         this.prev_ans = "";
+        this.shift_buttons = document.getElementsByClassName('shift');
+        this.nonshift_buttons = document.getElementsByClassName('non-shift');
+        this.old_color;
+        this.shift = true;
+        this.toggle_shift();
         this.settings = {
             // angle-unit: "deg", "rad" 
             "angle-unit": "deg",
@@ -125,7 +130,7 @@ class Calculator{
 
         this.pemdas(list);
         this.prev_ans = list[0];
-        this.input = list[0];
+        this.input = `${list[0]}`;
         this.update_display();
     }
 
@@ -141,6 +146,46 @@ class Calculator{
         this.cursor_pos += x + y;
         this.display.focus();
         this.update_display();
+    }
+
+    toggle_shift() {
+        let btn = document.getElementById('shift-button');
+        this.shift = !this.shift;
+        let children;
+        if (this.shift) {
+            this.old_color = btn.style.backgroundColor;
+            btn.style.backgroundColor = 'green';
+            for (let i = 0; i < this.nonshift_buttons.length; i++) {
+                this.nonshift_buttons[i].style.display = "none";
+                children = this.nonshift_buttons[i].getElementsByTagName('button');
+                for (let j = 0; j < children.length; j++) {
+                    this.nonshift_buttons[i].style.display = "none";
+                }
+            }
+            for (let i = 0; i < this.shift_buttons.length; i++) {
+                this.shift_buttons[i].style.display = "flex";
+                children = this.shift_buttons[i].getElementsByTagName('button');
+                for (let j = 0; j < children.length; j++) {
+                    this.shift_buttons[i].style.display = "flex";
+                }
+            }
+        } else {
+            document.getElementById('shift-button').style.backgroundColor = this.old_color;
+            for (let i = 0; i < this.nonshift_buttons.length; i++) {
+                this.nonshift_buttons[i].style.display = "flex";
+                children = this.nonshift_buttons[i].getElementsByTagName('button');
+                for (let j = 0; j < children.length; j++) {
+                    this.nonshift_buttons[i].style.display = "flex";
+                }
+            }
+            for (let i = 0; i < this.shift_buttons.length; i++) {
+                this.shift_buttons[i].style.display = "none";
+                children = this.shift_buttons[i].getElementsByTagName('button');
+                for (let j = 0; j < children.length; j++) {
+                    this.shift_buttons[i].style.display = "none";
+                }
+            }
+        }
     }
 
     insert(event) {
@@ -185,6 +230,7 @@ class Calculator{
         let operations = {
             '×': multiply,
             '÷': divide,
+            '/': divide,
             '+': add,
             '-': subtract
         }

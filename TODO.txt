@@ -3,13 +3,6 @@ trenutno je samo a/b
 
 Koristiti MathJax za renderanje matematike
 
-insertati puta kada je broj uz zagradu
-npr:
-    3(2+3) => 3*(2+3)
-    (1-2)3 => (1-2)*3
-
-staviti cursor na kraj inputa za multichar insertove
-staviti cursor u zagrade za neodredene inpute
 cursor preskace cjeline npr Ans log
 
 napraviti cijeli shift menu frontend i backend
