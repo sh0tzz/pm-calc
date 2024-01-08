@@ -145,7 +145,7 @@ class Calculator{
                 if (this.isNumber(tokens[i])) {
                     tokens[i] = parseFloat(tokens[i]);
                 }
-            }``
+            }
             for (let i = 0; i < tokens.length; i++) {
                 if (tokens[i] == '{') l_brace = i;
                 if (tokens[i] == '}') {
