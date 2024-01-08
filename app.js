@@ -108,21 +108,103 @@ class Calculator{
         this.alt_text = this.input;
         let tokens = this.lexical_analysis(this.input);
         if (tokens == 69) return;
-
-        //pronalazenje i racunanje zagrada
-        let l_paren = -1;
-        let r_paren = -1;
+        let complex_dict = {
+            'log':  log,
+            '√':    NthRoot
+        };
+        let simple_dict = {
+            'ln':       ln,
+            'sin':      sin,
+            'cos':      cos,
+            'tan':      tan,
+            'asin':     asin,
+            'acos':     acos,
+            'atan':     atan,
+        };
+        let simple = Object.keys(simple_dict);
         let partial_list = [];
         let complex_tokens = [
             'sin', 'cos', 'tan', 'asin', 'acos', 'atan',
             '^', '√', 'log', 'ln', ']'
         ];
-        while (tokens.includes('(') && tokens.includes(')')){
+        let l_paren, r_paren;
+        let l_brace, r_brace;
+        let start, count;
+        let num, base;
+        let result;
+        let operation;
+        let counter;
+        while (tokens.length > 1) {
+            counter = 0;
+            console.log(tokens);
+            l_brace = -1;
+            r_brace = -1;
+            start = -1;
+            count = -1;
+            for (let i = 0; i < tokens.length; i++) {
+                if (this.isNumber(tokens[i])) {
+                    tokens[i] = parseFloat(tokens[i]);
+                }
+            }``
+            for (let i = 0; i < tokens.length; i++) {
+                if (tokens[i] == '{') l_brace = i;
+                if (tokens[i] == '}') {
+                    counter++;
+                    r_brace = i;
+                    operation = tokens[l_brace-1];
+                    if (['log', '√'].includes(operation)) {
+                        if (tokens[l_brace-2] == ']') {
+                            if (tokens[l_brace-4] != '[') {
+                                window.alert('SYNTAX ERROR');
+                                return;
+                            }
+                            start = l_brace-4;
+                            base = tokens[l_brace-3];
+                        } else {
+                            start = l_brace-1;
+                            if (operation == 'log') base = 10;
+                            if (operation == '√')   base = 2;
+                        }
+                        count = r_brace+1-start;
+                        num = tokens[l_brace+1];
+                        result = complex_dict[operation](num, base);
+                        tokens.splice(start, count, result);
+                        l_brace = -1;
+                        r_brace = -1;
+                        start = -1;
+                        count = -1;
+                    }
+                    else if (simple.includes(operation)) {
+                        start = l_brace-1;
+                        count = r_brace+1-start;
+                        num = tokens[l_brace+1]
+                        result = simple_dict[operation](num);
+                        tokens.splice(start, count, result);
+                    }
+                    else if (operation == '^') {
+                        start = l_brace-2;
+                        count = r_brace+1-start;
+                        base = tokens[l_brace-2];
+                        num = tokens[l_brace+1];
+                        result = power(base, num);
+                        tokens.splice(start, count, result);
+                    }
+                    else {
+                        window.alert('SYNTAX ERROR');
+                        return;
+                    }
+                }
+            }
+            if (l_brace != -1 && r_brace == -1) {
+                window.alert('ERROR al nez kak se dogodi');
+                return;
+            }
             for (let i = 0; i < tokens.length; i++) {
                 if(tokens[i] == '(') {
                     l_paren = i;
                 }
                 else if(tokens[i] == ')') {
+                    counter++;
                     r_paren = i;
                     partial_list = tokens.slice(l_paren+1, r_paren);
                     if (complex_tokens.includes(tokens[l_paren-1])) {
@@ -136,11 +218,15 @@ class Calculator{
                     r_paren = -1;
                 }
             }
+            if (counter == 0) {
+                if (!(tokens.includes('(') || tokens.includes(')'))) {
+                    tokens = this.pemdas(tokens);
+                }
+            }
         }
-        console.log(tokens);
-        this.pemdas(tokens);
-        this.prev_ans = tokens[0];
-        this.input = `${tokens[0]}`;
+        console.log(tokens);    
+        this.prev_ans = tokens;
+        this.input = `${tokens}`;
         this.update_display();
     }
 

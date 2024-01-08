@@ -29,8 +29,8 @@ function power(num1, num2) {
     return Math.pow(num1, num2);
 }
 
-function NthRoot(num1, num2) {
-    return Math.pow(num1, 1 / num2);
+function NthRoot(num, base) {
+    return Math.pow(num, 1 / base);
 }
 
 // function fraction(num1, num2 ) {
@@ -47,7 +47,7 @@ function asin(num1){
 function cos(num1){
     return Math.cos(num1);
 }
-function acon(num1){
+function acos(num1){
     return Math.acos(num1);
 }
 
@@ -58,12 +58,12 @@ function atan(num1){
     return Math.atan(num1);
 }
 
-function ctg(num1) {
-    return 1 / Math.tan(num1); 
+function log(num, base) {
+    return Math.log(num) / Math.log(base);
 }
 
-function log(a, x) {
-    return Math.log(x) / Math.log(a);
+function ln(num) {
+    return log(num, Math.E);
 }
 
 function abs(num1){
