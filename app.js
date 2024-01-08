@@ -11,64 +11,56 @@ class Calculator{
         this.old_color;
         this.shift = true;
         this.toggle_shift();
-        this.settings = {
-            // angle-unit: "deg", "rad" 
-            "angle-unit": "deg",
-            //"num-format": "norm", "sci"
-            "num-format": "norm",
-        }
     }
 
-    evaluate() {
-        this.alt_text = this.input;
-
+    lexical_analysis(input) {
         //razdvajanje elemenata
         let number = "";
         let operator = "";
-        const operators = ["+", "-", "×", "÷", "pow", "log", "sin",
+        const operators = ["+", "-", "×", "÷", "^", "log", "sin",
          "asin", "cos", "acos", "tan", "atan", "(", ")", ".", "Ans",
-         "°","'", "\""];
+         "°","'", "\"", "[", "]", "√", "!"];
         let list = [];
-        for(let i = 0; i < this.input.length; i ++) {
+        for(let i = 0; i < input.length; i ++) {
             if(number == "" && operator == "") {
-                if(this.input[i] >= '0' && this.input[i] <= '9') {
-                    number += this.input[i];
+                if(input[i] >= '0' && input[i] <= '9') {
+                    number += input[i];
                 }
-                else if(operators.includes(this.input[i])) {
-                    list.push(this.input[i]);
+                else if(operators.includes(input[i])) {
+                    list.push(input[i]);
                 }
                 else {
-                    operator += this.input[i];
+                    operator += input[i];
                 }
             }
             else if(number != "" && operator == "") {
-                if(this.input[i] >= '0' && this.input[i] <= '9') {
-                    number += this.input[i];
+                if(input[i] >= '0' && input[i] <= '9') {
+                    number += input[i];
                 }
-                else if(operators.includes(this.input[i])) {
+                else if(operators.includes(input[i])) {
                     list.push(parseInt(number));
                     number = "";
-                    list.push(this.input[i]);
+                    list.push(input[i]);
                 }
                 else{
                     list.push(parseInt(number));
                     number = "";
-                    operator += this.input[i];
+                    operator += input[i];
                 }
             }
             else if(number == "" && operator != "") {
-                if(this.input[i] >= '0' && this.input[i] <= '9') {
+                if(input[i] >= '0' && input[i] <= '9') {
                     list.push(operator);
                     operator = "";
-                    number += this.input[i];
+                    number += input[i];
                 }
-                else if(operators.includes(this.input[i])) {
+                else if(operators.includes(input[i])) {
                     list.push(operator);
                     operator = "";
-                    list.push(this.input[i]);
+                    list.push(input[i]);
                 }
                 else {
-                    operator += this.input[i];
+                    operator += input[i];
                 }
             }
         }
@@ -89,48 +81,66 @@ class Calculator{
                 list.splice(i-1,3,decnum);
             }
         }
-
         //checkiranje jel dobar upis
         for (let i = 0; i < list.length; i++) {
-            if(list[i] >= '0' && list[i] <= '9') {
+            if(this.isNumber(list[i])) {
                 continue;
             }
             if(operators.includes(list[i])) {
                 continue;
             }
             else{
-                console.log("error: wrong input; input not an operator or a number");
+                console.log("error: wrong input; input not an operator or a number" + list[i]);
+                return 69;
             }
         }
         
         //provjeravanje broja zagrada
         if (this.count(list,'(') != this.count(list,')')){
             console.log("broj zagrada nije jednak!");
-            return;
+            return 69;
         }
+        
+        return list;
+    }
+
+    evaluate() {
+        this.alt_text = this.input;
+        let tokens = this.lexical_analysis(this.input);
+        if (tokens == 69) return;
 
         //pronalazenje i racunanje zagrada
         let l_paren = -1;
         let r_paren = -1;
         let partial_list = [];
-        while(list.includes('(') && list.includes(')')){
-            for(let i = 0; i < list.length; i++) {
-                if(list[i] == '(') {
+        let complex_tokens = [
+            'sin', 'cos', 'tan', 'asin', 'acos', 'atan',
+            '^', '√', 'log', 'ln', ']'
+        ];
+        while (tokens.includes('(') && tokens.includes(')')){
+            for (let i = 0; i < tokens.length; i++) {
+                if(tokens[i] == '(') {
                     l_paren = i;
                 }
-                if(list[i] == ')') {
+                else if(tokens[i] == ')') {
                     r_paren = i;
-                    partial_list = list.slice(l_paren+1, r_paren);
-                    list.splice(l_paren, (r_paren-l_paren)+1,this.pemdas(partial_list));
+                    partial_list = tokens.slice(l_paren+1, r_paren);
+                    if (complex_tokens.includes(tokens[l_paren-1])) {
+                        tokens[l_paren] = '{';
+                        tokens[r_paren] = '}';
+                        tokens.splice(l_paren+1, (r_paren-l_paren)-1,this.pemdas(partial_list));
+                    } else {
+                        tokens.splice(l_paren, (r_paren-l_paren)+1,this.pemdas(partial_list));
+                    }
                     l_paren = -1;
                     r_paren = -1;
                 }
             }
         }
-
-        this.pemdas(list);
-        this.prev_ans = list[0];
-        this.input = `${list[0]}`;
+        console.log(tokens);
+        this.pemdas(tokens);
+        this.prev_ans = tokens[0];
+        this.input = `${tokens[0]}`;
         this.update_display();
     }
 
@@ -244,14 +254,24 @@ class Calculator{
         }
         return list[0];
     }
-    count(list,element) {
+
+    count(list, element) {
         let count_element = 0;
         for(let i = 0; i<list.length; i++){
-            if(list[i] === element) {
+            if(list[i] == element) {
                 count_element += 1;
             }
         }
         return count_element;
+    }
+
+    isNumber(x) {
+        for (let i = 0; i < x.length; i++) {
+            if ((x[i] < '0' || x[i] > '9') && (x[i] != '.')) {
+                return false;
+            }
+        }
+        return true;
     }
 }
 
