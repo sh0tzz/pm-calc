@@ -119,7 +119,7 @@ class Calculator{
             'tan':      tan,
             'asin':     asin,
             'acos':     acos,
-            'atan':     atan,
+            'atan':     atan
         };
         let simple = Object.keys(simple_dict);
         let partial_list = [];
@@ -147,6 +147,11 @@ class Calculator{
                 }
             }
             for (let i = 0; i < tokens.length; i++) {
+                if (i > 0) {
+                    if (this.isNumber(tokens[i-1]) && tokens[i] == '!') {
+                        tokens.splice(i-1, 2, factorial(tokens[i-1]));
+                    }
+                }
                 if (tokens[i] == '{') l_brace = i;
                 if (tokens[i] == '}') {
                     counter++;
