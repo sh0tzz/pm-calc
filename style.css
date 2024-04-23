@@ -7,6 +7,12 @@
     margin-right: 10px;
 }
 
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 #calculator {
     display: flex;
     flex-direction: column;

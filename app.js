@@ -135,6 +135,7 @@ class Calculator{
         let operation;
         let counter;
         while (tokens.length > 1) {
+            console.log('0')
             counter = 0;
             console.log(tokens);
             l_brace = -1;
@@ -229,9 +230,12 @@ class Calculator{
                 }
             }
         }
-        console.log(tokens);    
+        console.log(tokens);
+        console.log('1');
         this.prev_ans = tokens;
+        console.log('2');
         this.input = `${tokens}`;
+        console.log('3');
         this.update_display();
     }
 
@@ -336,11 +340,17 @@ class Calculator{
             '-': subtract
         }
         let ops = Object.keys(operations);
+        let counter;
         for (let i = 0; i < ops.length; i++) {
+            counter = 0;
             while(list.includes(ops[i])) {
+                if (counter >= 3) {
+                    break;
+                }
                 index_of_operation = list.indexOf(ops[i]);
                 temp_result = operations[ops[i]](list[index_of_operation-1], list[index_of_operation+1]);
-                list.splice(index_of_operation-1,3,temp_result);;
+                list.splice(index_of_operation-1,3,temp_result);
+                counter++;
             }
         }
         return list[0];
